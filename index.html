@@ -5,79 +5,281 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Saheranjum Portfolio</title>
 
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<!-- THREE JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: black;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* LOADER */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  color: cyan;
+  font-size: 2rem;
+}
+
+/* GRID BACKGROUND */
+.grid {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#00f0ff22 1px, transparent 1px),
+              linear-gradient(90deg, #00f0ff22 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -2;
+}
+
+/* THREE */
+#bg {
+  position: fixed;
+  z-index: -3;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  margin-top: 80px;
+}
+
+/* PROFILE IMAGE */
+.profile {
+  width: 150px;
+  border-radius: 50%;
+  box-shadow: 0 0 30px cyan;
+  animation: float 3s infinite ease-in-out;
+}
+@keyframes float {
+  50% { transform: translateY(-15px); }
+}
+
+/* TEXT */
+h1 span { color: cyan; }
+
+/* BUTTON */
+.btn {
+  padding: 10px 20px;
+  background: cyan;
+  color: black;
+  border-radius: 10px;
+  margin: 10px;
+  text-decoration: none;
+}
+
+/* PROJECTS */
+#projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.card {
+  border: 1px solid cyan;
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.3s;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 20px cyan;
+}
+
+/* CURSOR */
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: cyan;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 20px cyan;
+}
+
+/* CHATBOT */
+#chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 260px;
+  background: #111;
+  border: 1px solid cyan;
+  border-radius: 10px;
+  padding: 10px;
+}
+#chatlog {
+  height: 150px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+#userInput {
+  width: 100%;
+  padding: 5px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .profile { width: 100px; }
+}
+</style>
 </head>
 
 <body>
 
-<!-- GLOW CURSOR -->
-<div class="cursor"></div>
+<!-- LOADER -->
+<div id="loader">Loading...</div>
 
-<header>
-  <nav>
-    <h2 class="logo">Saheranjum.dev</h2>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+<div class="grid"></div>
+<canvas id="bg"></canvas>
+<div class="cursor"></div>
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Hi, I'm Saheranjum 👋</h1>
-  <h2><span id="typing"></span></h2>
-  <p>Building AI & Data Science Projects 🚀</p>
+  <img src="profile.jpg" class="profile">
+  <h1>Hi I'm <span>Saheranjum</span> 👋</h1>
+  <h2 id="typing"></h2>
 
-  <div class="buttons">
-    <a href="resume.pdf" target="_blank">Resume</a>
-    <a href="https://github.com/saheranjumm13" target="_blank">GitHub</a>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="hidden">
-  <h2>About Me</h2>
-  <p>Data Science student passionate about ML, AI & solving real-world problems.</p>
+  <a href="#" class="btn">Resume</a>
+  <a href="https://github.com/saheranjumm13" class="btn">GitHub</a>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="hidden">
-  <h2>My Projects</h2>
-  <div id="projects-container" class="project-container"></div>
+<h2 style="text-align:center;">My Projects</h2>
+<div id="projects-container"></div>
+
+<!-- RESUME ANALYZER -->
+<section style="text-align:center;">
+  <h2>AI Resume Analyzer 🤖</h2>
+  <input type="file">
+  <button onclick="analyze()">Analyze</button>
+  <p id="result"></p>
 </section>
 
-<!-- SKILLS -->
-<section id="skills" class="hidden">
-  <h2>Skills</h2>
-  <div class="skills-container">
-    <div>Python</div>
-    <div>Machine Learning</div>
-    <div>SQL</div>
-    <div>Data Analysis</div>
-    <div>Deep Learning</div>
-  </div>
-</section>
+<!-- VOICE -->
+<div style="text-align:center;">
+  <button onclick="voice()">🎤 Speak</button>
+</div>
 
-<!-- CONTACT -->
-<section id="contact" class="hidden">
-  <h2>Contact</h2>
-  <form id="contact-form">
-    <input type="text" id="name" placeholder="Name" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <textarea id="message" placeholder="Message" required></textarea>
-    <button type="submit">Send</button>
-  </form>
-</section>
+<!-- CHATBOT -->
+<div id="chatbot">
+  <div id="chatlog"></div>
+  <input id="userInput" placeholder="Ask me..." onkeydown="chat(event)">
+</div>
 
-<footer>
-  <p>© 2026 Saheranjum Makandar</p>
-</footer>
+<script>
+/* LOADER */
+window.onload = () => {
+  document.getElementById("loader").style.display = "none";
+};
 
-<script src="script.js"></script>
+/* CURSOR */
+document.addEventListener("mousemove", e => {
+  const c = document.querySelector(".cursor");
+  c.style.left = e.clientX + "px";
+  c.style.top = e.clientY + "px";
+});
+
+/* TYPING */
+const roles = ["AI Developer","Data Scientist","Web Developer"];
+let i=0,j=0,del=false;
+function type(){
+  let txt = roles[i];
+  document.getElementById("typing").innerText = txt.substring(0,j);
+
+  if(!del){
+    j++;
+    if(j>txt.length){ del=true; setTimeout(type,1000); return; }
+  } else {
+    j--;
+    if(j<0){ del=false; i=(i+1)%roles.length; }
+  }
+  setTimeout(type,100);
+}
+type();
+
+/* GITHUB PROJECTS + IMAGES */
+fetch("https://api.github.com/users/saheranjumm13/repos?sort=updated")
+.then(res=>res.json())
+.then(data=>{
+  const container=document.getElementById("projects-container");
+
+  data.slice(0,6).forEach(repo=>{
+    const img=`https://opengraph.githubassets.com/1/saheranjumm13/${repo.name}`;
+
+    container.innerHTML += `
+      <div class="card">
+        <img src="${img}" width="100%">
+        <h3>${repo.name}</h3>
+        <p>${repo.description || "No description"}</p>
+        <a href="${repo.html_url}" target="_blank">View Project</a>
+      </div>
+    `;
+  });
+});
+
+/* THREE JS */
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById("bg")});
+renderer.setSize(innerWidth,innerHeight);
+
+const geometry=new THREE.TorusGeometry(10,3,16,100);
+const material=new THREE.MeshBasicMaterial({color:0x00ffff,wireframe:true});
+const torus=new THREE.Mesh(geometry,material);
+scene.add(torus);
+
+camera.position.z=30;
+
+function animate(){
+  requestAnimationFrame(animate);
+  torus.rotation.x+=0.01;
+  torus.rotation.y+=0.01;
+  renderer.render(scene,camera);
+}
+animate();
+
+/* VOICE */
+function voice(){
+  const rec = new webkitSpeechRecognition();
+  rec.onresult = e => alert("You said: "+e.results[0][0].transcript);
+  rec.start();
+}
+
+/* RESUME ANALYZER */
+function analyze(){
+  document.getElementById("result").innerText =
+  "✅ Good Resume! Add more projects + AI skills.";
+}
+
+/* CHATBOT */
+function chat(e){
+  if(e.key==="Enter"){
+    const input=document.getElementById("userInput").value;
+    const log=document.getElementById("chatlog");
+
+    let reply="I am your portfolio assistant 🤖";
+
+    if(input.toLowerCase().includes("project"))
+      reply="Check my GitHub projects above!";
+    if(input.toLowerCase().includes("skills"))
+      reply="Python, ML, AI, Web Dev";
+
+    log.innerHTML += `<p>You: ${input}</p><p>Bot: ${reply}</p>`;
+    document.getElementById("userInput").value="";
+  }
+}
+</script>
 
 </body>
 </html>
