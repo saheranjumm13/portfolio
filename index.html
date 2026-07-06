@@ -157,7 +157,67 @@ h1 span { color: cyan; }
 <!-- PROJECTS -->
 <h2 style="text-align:center;">My Projects</h2>
 <div id="projects-container"></div>
+<!-- ACHIEVEMENTS -->
+<h2 style="text-align:center;">Achievements</h2>
+<div id="achievements-container">
 
+  <div class="achieve-card">
+    <div class="achieve-icon">🎓</div>
+    <h3>Academic Excellence</h3>
+    <p>9.01 CGPA in B.Tech CSE (Data Science), D. Y. Patil Agriculture & Technical University</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">🏆</div>
+    <h3>Merit Scholarship</h3>
+    <p>Sou. Shantadevi Scholarship, awarded for outstanding academic performance in the annual examination</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">🤖</div>
+    <h3>ML Certification — Simplilearn</h3>
+    <p>Machine Learning Using Python · Oct 2025</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">💼</div>
+    <h3>Deloitte Job Simulation</h3>
+    <p>Data Analytics Job Simulation by Deloitte · Jan 2026</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">📊</div>
+    <h3>Python for Data Science — IBM</h3>
+    <p>Certified by IBM · Dec 2025</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">⚡</div>
+    <h3>Microsoft Certified</h3>
+    <p>Power Platform Fundamentals — Microsoft · Jul 2026</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">🚀</div>
+    <h3>3 Live Projects</h3>
+    <p>IoT Drink & Drive Detection, Blood Bank Management, AR Hospital Navigation — all built and deployed</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">💡</div>
+    <h3>Smart India Hackathon</h3>
+    <p>Selected at College Level — Project on rural piped water supply management for Gram Panchayats</p>
+  </div>
+
+  <div class="achieve-card">
+    <div class="achieve-icon">🔥</div>
+    <h3>Spark2K26 Hackathon</h3>
+    <p>Annasaheb Dange College of Engineering — AR-Based Smart Hospital Navigation & Patient Assistance System</p>
+  </div>
+
+</div>
+
+<!-- RESUME ANALYZER -->
 <!-- RESUME ANALYZER -->
 <section style="text-align:center;">
   <h2>AI Resume Analyzer 🤖</h2>
@@ -273,7 +333,7 @@ function chat(e){
     if(input.toLowerCase().includes("project"))
       reply="Check my GitHub projects above!";
     if(input.toLowerCase().includes("skills"))
-      reply="Python, ML, AI, Web Dev";
+      reply="Python, ML, AI";
 
     log.innerHTML += `<p>You: ${input}</p><p>Bot: ${reply}</p>`;
     document.getElementById("userInput").value="";
