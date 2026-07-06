@@ -62,42 +62,6 @@ nav a:hover {
   box-shadow: 0 0 20px #00aaff;
 }
 
-/* ACHIEVEMENTS */
-#achievements-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-  padding: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.achieve-card {
-  border: 1px solid cyan;
-  border-radius: 10px;
-  padding: 20px;
-  background: #0a0a0a;
-  transition: 0.3s;
-}
-.achieve-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 20px cyan;
-}
-.achieve-icon {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-.achieve-card h3 {
-  margin: 0 0 8px 0;
-  color: cyan;
-  font-size: 1.1rem;
-}
-.achieve-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #ccc;
-  line-height: 1.4;
-}
-
 /* SECTIONS */
 section {
   padding: 60px 20px;
