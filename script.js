@@ -1,5 +1,5 @@
 // TYPING EFFECT
-const text = ["Data Scientist", "ML Engineer", "Python Developer"];
+const text = ["AI Developer","Data Scientist","Data Analyst"];
 let i = 0, j = 0, current = "", deleting = false;
 
 function type() {
